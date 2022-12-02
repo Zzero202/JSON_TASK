@@ -19,11 +19,13 @@ function getDetails(e){
   .then(res=>res.json())
   .then(res=>{
    
-        details.innerHTML = `
-        <tr><td>${res.title}</td>
-        <td class='description'>${res.body.slice(0,90)+ '.....'}</td>
-        <td>
-        </tr>` 
+    details.innerHTML = `
+    <h3>Details of the Post</h3>
+    <h5 class='body'>title: <span>${res.title}</span></h5>
+    <p class='desc'>Description: <span> ${res.body}</span></p>
+    <p class='tags'>Tags:<span> ${res.tags}</span></p>
+    <hr>
+    `
     
   })
 }
@@ -34,11 +36,18 @@ function getComments(e){
     .then(res=>res.json())
     .then(res=>{
      res.comments.map(comment=>{
-          comments.innerHTML +=`<pre>${comment.body}</pre>`
+      comments.innerHTML += `
+          
+      <p class'body'><span>${comment.body}</span></p>
+      <h4 class='username'><span>${comment.user.username}</span> commented in this post</h4>
+      `
          
     })
     })
   }
   
+  
+  
+
 getDetails(idNum);
 getComments(idNum)

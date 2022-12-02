@@ -23,10 +23,9 @@ function getDetails(e){
    
         details.innerHTML = `
         <h3>Details of the Post</h3>
-        <h5>title: ${res.title}</h5>
-        <p>Description: ${res.body}</p>
-        <p>Tags: ${res.tags}</p>
-        <p>userId: ${res.userId}</p>
+        <h5 class='body'>title: <span>${res.title}</span></h5>
+        <p class='desc'>Description: <span> ${res.body}</span></p>
+        <p class='tags'>Tags:<span> ${res.tags}</span></p>
         <hr>
         `
        
@@ -36,7 +35,7 @@ function getDetails(e){
 
 let comments = document.getElementById('comments');
 function getComments(e){
-  comments.innerHTML = '';
+  comments.innerHTML = '<h3>Comments</h3>';
   console.log(comments);
   fetch(`${url}/posts/${e.target.id}/comments`)
     .then(res=>res.json())
@@ -44,9 +43,9 @@ function getComments(e){
       // console.log(res.comments.length);
       res.comments.map(comment=>{
           comments.innerHTML += `
-          <p>${comment.body}</p>
-          <p>postId : ${comment.postId}</p>
-          <h4>${comment.user.username} commented in this post</h4>
+          
+          <p class'body'><span>${comment.body}</span></p>
+          <h4 class='username'><span>${comment.user.username}</span> commented in this post</h4>
           `
     })
     

@@ -22,23 +22,35 @@ function getDetails(e){
   .then(res=>{
    
         details.innerHTML = `
-        <tr><td>${res.title}</td>
-        <td class='description'>${res.body.slice(0,90)+ '.....'}</td>
-        <td>
-        </tr>` 
+        <h3>Details of the Post</h3>
+        <h5>title: ${res.title}</h5>
+        <p>Description: ${res.body}</p>
+        <p>Tags: ${res.tags}</p>
+        <p>userId: ${res.userId}</p>
+        <hr>
+        `
+       
     
   })
 }
 
 let comments = document.getElementById('comments');
 function getComments(e){
-    fetch(`${url}/posts/${e.target.id}/comments`)
+  comments.innerHTML = '';
+  console.log(comments);
+  fetch(`${url}/posts/${e.target.id}/comments`)
     .then(res=>res.json())
     .then(res=>{
-     res.comments.map(comment=>{
-          comments.innerHTML += comment.body
-         
+      // console.log(res.comments.length);
+      res.comments.map(comment=>{
+          comments.innerHTML += `
+          <p>${comment.body}</p>
+          <p>postId : ${comment.postId}</p>
+          <h4>${comment.user.username} commented in this post</h4>
+          `
     })
+    
     })
   }
+  
   

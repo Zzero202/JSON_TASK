@@ -4,6 +4,7 @@ fetch(`${url}/posts`)
 .then(res => res.json())
 .then(res=>{
     res.posts.map(post=>{
+        //console.log(res);
         content.innerHTML += `
        <tr><td>${post.title}</td>
        <td class='description'>${post.body.slice(0,90)+ '.....'}</td>

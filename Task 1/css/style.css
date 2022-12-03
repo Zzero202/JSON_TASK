@@ -56,9 +56,11 @@ button:hover{
 }
 #comments h4{
     font-size: 18px;
+    color:gray;
 }
 #comments p{
     font-size:30px;
+
 }
 #details p{
     font-size:25px;

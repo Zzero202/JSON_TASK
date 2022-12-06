@@ -1,26 +1,43 @@
 let content =  document.getElementById('content')
-var url = 'https://dummyjson.com'
+var url = 'https://dummyjson.com';
 fetch(`${url}/posts`)
 .then(res => res.json())
 .then(res=>{
-    res.posts.map(post=>{
-        //console.log(res);
+  res.posts.map(post=>{
+    //console.log(res);
+        
         content.innerHTML += `
-       <tr><td>${post.title}</td>
-       <td class='description'>${post.body.slice(0,90)+ '.....'}</td>
-       <td><button onclick='getDetails(event)+getComments(event)' class='info' id='${post.id}'>Read More</button>
-       </tr>`
+        <div class='post-content'>
+        <div class='post'>
+       <h4>${post.title}</h4>
+       <p>${post.body}</p>
+       </div>
+       <button onclick='getDetails(event)+getComments(event)' class='info' id='${post.id}'><img src='images/comment.png' width='15'> Read More</button>   
+       <div class="posts-comments-holder">
+
+       <div id="${post.id}d" class='details'> 
+
+       </div>
+ 
+       <div id="${post.id}c" class='comments'> 
+     
+       </div>
+       </div>
+    </div>
+       ` 
+
+       
+     
+       
        //    console.log(post.id)
        //    console.log(content)
     })
 });
-let details = document.getElementById('details');
-
 function getDetails(e){
   fetch(`${url}/posts/${e.target.id}`)
   .then(res=>res.json())
   .then(res=>{
-   
+    let details = document.getElementById(e.target.id +'d');
         details.innerHTML = `
         <h3>Details of the Post</h3>
         <h5 class='body'>title: <span>${res.title}</span></h5>
@@ -33,8 +50,8 @@ function getDetails(e){
   })
 }
 
-let comments = document.getElementById('comments');
 function getComments(e){
+  let comments = document.getElementById(e.target.id+'c');
   comments.innerHTML = '<h3>Comments</h3>';
   console.log(comments);
   fetch(`${url}/posts/${e.target.id}/comments`)
@@ -43,13 +60,17 @@ function getComments(e){
       // console.log(res.comments.length);
       res.comments.map(comment=>{
           comments.innerHTML += `
-          
+          <div class='comments-username-body'>
+          <p class='username'><span>${comment.user.username}</span></p>
           <p class'body'><span>${comment.body}</span></p>
-          <h4 class='username'><span>${comment.user.username}</span> commented in this post</h4>
+          </div>
           `
     })
     
     })
   }
   
+
   
+
+

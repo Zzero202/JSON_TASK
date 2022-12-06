@@ -1,19 +1,10 @@
-var page = window.location.href;
-vars = {};
-page.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
- key = decodeURIComponent(key);
- value = decodeURIComponent(value);
- //console.log(value)
- value = value.replace(' ', '');
- value = parseInt(value);
-//  console.log(typeof(value))
- vars[key] = value;
-});
+let pageURL = window.location.href;
+console.log(pageURL)
+let id = pageURL.substring(pageURL.lastIndexOf('=') + 1);
 
-let idNum = vars.id;
 
 let details = document.getElementById('details');
-var url = 'https://dummyjson.com';
+let url = 'https://dummyjson.com';
 function getDetails(e){
   fetch(`${url}/posts/${e}`)
   .then(res=>res.json())
@@ -37,9 +28,11 @@ function getComments(e){
     .then(res=>{
      res.comments.map(comment=>{
       comments.innerHTML += `
-          
+      <div class='comments-username-body'>
+      <p class='username'><img src="images/img_avatar.png" alt="Avatar" class="avatar">
+      <span>${comment.user.username}</span></p>
       <p class'body'><span>${comment.body}</span></p>
-      <h4 class='username'><span>${comment.user.username}</span> commented in this post</h4>
+      </div>
       `
          
     })
@@ -49,5 +42,5 @@ function getComments(e){
   
   
 
-getDetails(idNum);
-getComments(idNum)
+getDetails(id);
+getComments(id)

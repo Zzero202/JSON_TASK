@@ -1,15 +1,19 @@
 let content =  document.getElementById('content')
-var url = 'https://dummyjson.com'
+let url = 'https://dummyjson.com'
 fetch(`${url}/posts`)
 .then(res => res.json())
 .then(res=>{
     res.posts.map(post=>{
         //console.log(res);
         content.innerHTML += `
-       <tr><td>${post.title}</td>
-       <td class='description'>${post.body.slice(0,90)+ '.....'}</td>
-       <td><button onclick='goForDetails(event)' class='info' id='${post.id}'>Read More</button>
-       </tr>`
+        <div class='post-content'>
+        <div class='post'>
+       <h4>${post.title}</h4>
+       <p>${post.body}</p>
+       </div>
+       <button onclick='goForDetails(event)+getComments(event)' class='info' id='${post.id}'><img src='images/comment.png' width='15'> Read More</button>   
+        </div>
+       `
        //    console.log(post.id)
        //    console.log(content)
     })
@@ -18,7 +22,7 @@ fetch(`${url}/posts`)
 function goForDetails(e){
     console.log(e.target.id);
     let href = e.target.id;
-    const page = `post-details.html?id=${href}`;
-    window.location.href = page;
+    const pageURL = `post-details.html?id=${href}`;
+    window.location.href = pageURL;
 
 }

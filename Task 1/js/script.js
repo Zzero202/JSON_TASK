@@ -61,7 +61,7 @@ function getComments(e){
       res.comments.map(comment=>{
           comments.innerHTML += `
           <div class='comments-username-body'>
-          <p class='username'><span>${comment.user.username}</span></p>
+          <p class='username'><span><img src="images/img_avatar.png" alt="Avatar" class="avatar">${comment.user.username}</span></p>
           <p class'body'><span>${comment.body}</span></p>
           </div>
           `

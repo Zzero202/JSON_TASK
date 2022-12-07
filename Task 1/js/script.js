@@ -12,8 +12,8 @@ fetch(`${url}/posts`)
        <h4>${post.title}</h4>
        <p>${post.body}</p>
        </div>
-       <button onclick='getDetails(event)+getComments(event)' class='info' id='${post.id}'><img src='images/comment.png' width='15'> Read More</button>   
-       <div class="posts-comments-holder">
+       <button onclick='getDetails(event)+getComments(event)+MoreDisplay(event)' class='info' id='${post.id}'><img src='images/comment.png' width='15'> Read More</button><button onclick='LessDisplay(event)' class='read-less' id='${post.id}l'>Read Less</button>  
+       <div id='${post.id}less' class="posts-comments-holder">
 
        <div id="${post.id}d" class='details'> 
 
@@ -53,7 +53,7 @@ function getDetails(e){
 function getComments(e){
   let comments = document.getElementById(e.target.id+'c');
   comments.innerHTML = '<h3>Comments</h3>';
-  console.log(comments);
+  //console.log(comments);
   fetch(`${url}/posts/${e.target.id}/comments`)
     .then(res=>res.json())
     .then(res=>{
@@ -70,7 +70,29 @@ function getComments(e){
     })
   }
   
-
+function MoreDisplay(e){
+  let id = e.target.id;
+  let Readbutton = document.getElementById(id);
+  let LessButton = document.getElementById(id+'l');
+  let commentDetails = document.getElementById(id+'less');
+  Readbutton.style.display = 'none';
+  LessButton.style.display = 'block';
+  commentDetails.style.display = 'block';
+  //console.log(Readbutton);
+}
   
+function LessDisplay(e){
+let id = e.target.id;
+//console.log(id);
+const removeChar = id.replace(/[A-z]/g,'')
+let Morebutton = document.getElementById(removeChar);
+//console.log(Morebutton);
+let ReadLess = document.getElementById(id+'ess');
+let LessButton = document.getElementById(id);
+ReadLess.style.display='none';
+LessButton.style.display= 'none';
+Morebutton.style.display = 'block'
 
 
+
+}

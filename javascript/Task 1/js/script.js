@@ -72,11 +72,11 @@ function getComments(e){
   
 function MoreDisplay(e){
   let id = e.target.id;
-  let Readbutton = document.getElementById(id);
-  let LessButton = document.getElementById(id+'l');
+  let readbutton = document.getElementById(id);
+  let lessButton = document.getElementById(id+'l');
   let commentDetails = document.getElementById(id+'less');
-  Readbutton.style.display = 'none';
-  LessButton.style.display = 'block';
+  readbutton.style.display = 'none';
+  lessButton.style.display = 'block';
   commentDetails.style.display = 'block';
   //console.log(Readbutton);
 }

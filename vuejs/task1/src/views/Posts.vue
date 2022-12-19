@@ -19,34 +19,51 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import axios from 'axios'
-    export default {
-        name: 'Posts',
-    data(){
-        return{
-            posts:[]
-        }
-    },
-    mounted(){
-        axios.get('https://jsonplaceholder.typicode.com/posts')
+import { ref, onMounted } from 'vue'
+import {api} from '../axios/axios'
+
+const posts = ref([]);
+const ShowPosts = ref(false)
+onMounted(()=>{
+      api.get()
         .then((res)=>{
-            this.posts = res.data
-            console.log(res)
+            posts.value = res.data
+            // console.log(res)
         }).catch((err)=>{
             console.log(err);
         })
-    }
-    // async created(){
-    //     try{
-    //         const res = await axios.get('https://jsonplaceholder.typicode.com/posts');
-    //         this.posts = res.data
-    //         console.log(this.posts)
-    //     }catch(e){
-    //         console.log(e)
+})
+
+
+
+    // export default {
+    //     name: 'Posts',
+    // data(){
+    //     return{
+    //         posts:[]
     //     }
+    // },
+    // mounted(){
+    //     axios.get('https://jsonplaceholder.typicode.com/posts')
+    //     .then((res)=>{
+    //         this.posts = res.data
+    //         console.log(res)
+    //     }).catch((err)=>{
+    //         console.log(err);
+    //     })
     // }
-    }
+    // // async created(){
+    // //     try{
+    // //         const res = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    // //         this.posts = res.data
+    // //         console.log(this.posts)
+    // //     }catch(e){
+    // //         console.log(e)
+    // //     }
+    // // }
+    // }
 </script>
 
 <style scoped>

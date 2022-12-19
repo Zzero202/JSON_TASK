@@ -22,36 +22,60 @@
     </div> 
 </template>
 
-<script>
+<script setup>
 import axios from 'axios'
-    export default {
-        name :'PostDetails',
-        props:['id'],
-        data(){
-            return{
-                posts:null,
-                comments:null
-            }
-        },
-         mounted(){
-            this.getpostdetails();
-            this.getcomments();
-        },
-        methods:{
-            getpostdetails(){
-           axios.get('https://jsonplaceholder.typicode.com/posts/'+ this.id).then((res)=>{
-            this.posts = res.data
+import { ref, onMounted } from 'vue'
+import {api} from '../axios/axios'
+const props = defineProps(['id'])
+const posts = ref(null);
+const comments = ref(null);
+
+        function getpostdetails(){
+            api.get(props.id).then((res)=>{
+            posts.value = res.data
+            
            })
-            },
-           getcomments(){
-            axios.get(`https://jsonplaceholder.typicode.com/posts/${this.id}/comments`).then((res)=>{
-            this.comments = res.data
+}
+ function getcomments(){
+            api.get(props.id+'/comments').then((res)=>{
+            comments.value = res.data
             // console.log(this.comments)
            })
            }
-        },
+onMounted(()=>{
+    getpostdetails();
+    getcomments();
+})
+
+
+    // export default {
+    //     name :'PostDetails',
+    //     props:['id'],
+    //     data(){
+    //         return{
+    //             posts:null,
+    //             comments:null
+    //         }
+    //     },
+    //      mounted(){
+    //         this.getpostdetails();
+    //         this.getcomments();
+    //     },
+    //     methods:{
+    //         getpostdetails(){
+    //        axios.get('https://jsonplaceholder.typicode.com/posts/'+ this.id).then((res)=>{
+    //         this.posts = res.data
+    //        })
+    //         },
+    //        getcomments(){
+    //         axios.get(`https://jsonplaceholder.typicode.com/posts/${this.id}/comments`).then((res)=>{
+    //         this.comments = res.data
+    //         // console.log(this.comments)
+    //        })
+    //        }
+    //     },
        
-    }
+    // }
 </script>
 
 <style scoped>

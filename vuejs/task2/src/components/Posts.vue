@@ -19,34 +19,24 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import axios from 'axios'
 import PostDetails from './PostDetails.vue'
-    export default {
-        name: 'Posts',
-        components:{
-            PostDetails,
-        },
-    data(){
-        return{
-            posts:[],
-            ShowPosts:false,
-        }
-    },
-     methods:{
-        getallposts(){
-                        
-           axios.get('https://jsonplaceholder.typicode.com/posts')
+import {ref,onMounted} from 'vue'
+
+const posts = ref([]);
+const ShowPosts = ref(false);
+
+function  getallposts(){
+        axios.get('https://jsonplaceholder.typicode.com/posts')
         .then((res)=>{
-            this.posts = res.data
+            posts.value = res.data
             // console.log(res)
         }).catch((err)=>{
             console.log(err);
         })             
-                        
-                        
-    },
-    display(e){
+}
+    function display(e){
         // console.log(e.target.id)
         let id = e.target.id;
         let readMore =document.getElementById(id); 
@@ -57,8 +47,8 @@ import PostDetails from './PostDetails.vue'
        let readLess = document.getElementById(id+'hide');
        readLess.style.display = 'block'
        
-    },
-    hide(e){
+    }
+    function hide(e){
      let id = e.target.id;
     //  console.log(id)
      let readLess = document.getElementById(id) 
@@ -70,12 +60,69 @@ import PostDetails from './PostDetails.vue'
      let readMore = document.getElementById(removeChar)
      readMore.style.display ='block'
     }
-        },
-    mounted(){
-     this.getallposts()
-    }
+
+
+onMounted(()=>{
+    getallposts();
+   
+})
+
+
+
+    // export default {
+    //     name: 'Posts',
+    //     components:{
+    //         PostDetails,
+    //     },
+    // data(){
+    //     return{
+    //         posts:[],
+    //         ShowPosts:false,
+    //     }
+    // },
+    //  methods:{
+    //     getallposts(){
+                        
+    //        axios.get('https://jsonplaceholder.typicode.com/posts')
+    //     .then((res)=>{
+    //         this.posts = res.data
+    //         // console.log(res)
+    //     }).catch((err)=>{
+    //         console.log(err);
+    //     })             
+                        
+                        
+    // },
+    // display(e){
+    //     // console.log(e.target.id)
+    //     let id = e.target.id;
+    //     let readMore =document.getElementById(id); 
+    //    let detail =  document.getElementById(id+'detail');
+    // //    console.log(detail);
+    //    detail.style.display='block'
+    //    readMore.style.display='none';
+    //    let readLess = document.getElementById(id+'hide');
+    //    readLess.style.display = 'block'
+       
+    // },
+    // hide(e){
+    //  let id = e.target.id;
+    // //  console.log(id)
+    //  let readLess = document.getElementById(id) 
+    //  readLess.style.display = 'none';
+    //  const removeChar = id.replace(/[A-z]/g,'')
+    //  let detail =  document.getElementById(removeChar+'detail');
+    //  console.log(detail)
+    //  detail.style.display='none'
+    //  let readMore = document.getElementById(removeChar)
+    //  readMore.style.display ='block'
+    // }
+    //     },
+    // mounted(){
+    //  this.getallposts()
+    // }
     
-    }
+    // }
 </script>
 
 <style scoped>

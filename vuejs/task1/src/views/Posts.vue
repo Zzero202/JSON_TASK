@@ -1,8 +1,8 @@
 <template>
     
- <h2 style="text-align:center;color:#fff">World News</h2>
-    <div v-if="posts.length" id="content">
-   <div v-for="post in posts" :key="post.id" class='post-content'>
+ <h2 style="text-align:center;color:#fff">{{PostStore.name}}</h2>
+    <div v-if="PostStore.posts.length" id="content">
+   <div v-for="post in PostStore.posts" :key="post.id" class='post-content'>
         <div class='post'>
        <h4>{{post.title}}</h4>
        <p>{{post.body}}</p>
@@ -20,24 +20,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import appServices from '../services/service'
-const posts = ref([]);
-const ShowPosts = ref(false)
+import {usePostStore} from '../stores/index'
+// console.log(usePostStore())
+import PostDetails from '../views/PostDetails.vue';
+const PostStore = usePostStore();
 
-
-onMounted(()=>{
-    appServices.getPosts().then((res)=>{
-            posts.value = res.data
-            // console.log(res)
-        }).catch((err)=>{
-            console.log(err);
-        })
-})
-
-
-
-    // export default {
+// export default {
     //     name: 'Posts',
     // data(){
     //     return{

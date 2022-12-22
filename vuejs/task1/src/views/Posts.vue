@@ -7,9 +7,9 @@
        <h4>{{post.title}}</h4>
        <p>{{post.body}}</p>
        </div>
-        <router-link style="text-decoration:none" :to="{name :'PostDetails',params:{id:post.id} }">
+    <router-link style="text-decoration:none" :to="{name :'PostDetails',params:{id:post.id} }">
             <button class='info'><img src='../../public/images/comment.png' width='15'> Read More</button>
-            </router-link>        
+        </router-link>        
 
 </div>
         
@@ -20,15 +20,14 @@
 </template>
 
 <script setup>
-import axios from 'axios'
 import { ref, onMounted } from 'vue'
-import {api} from '../axios/axios'
-
+import appServices from '../services/service'
 const posts = ref([]);
 const ShowPosts = ref(false)
+
+
 onMounted(()=>{
-      api.get()
-        .then((res)=>{
+    appServices.getPosts().then((res)=>{
             posts.value = res.data
             // console.log(res)
         }).catch((err)=>{

@@ -23,25 +23,25 @@
 </template>
 
 <script setup>
-import axios from 'axios'
 import { ref, onMounted } from 'vue'
-import {api} from '../axios/axios'
+import appServices from '../services/service'
+
 const props = defineProps(['id'])
 const posts = ref(null);
 const comments = ref(null);
 
         function getpostdetails(){
-            api.get(props.id).then((res)=>{
+            appServices.getPostById(props.id).then((res)=>{
             posts.value = res.data
             
            })
-}
- function getcomments(){
-            api.get(props.id+'/comments').then((res)=>{
+        }
+        function getcomments(){
+            appServices.getComments(props.id).then((res)=>{
             comments.value = res.data
             // console.log(this.comments)
            })
-           }
+        }
 onMounted(()=>{
     getpostdetails();
     getcomments();

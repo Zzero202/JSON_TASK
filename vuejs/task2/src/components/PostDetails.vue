@@ -23,20 +23,20 @@
 </template>
 
 <script setup>
-import axios from 'axios'
 import {ref,onMounted} from 'vue'
+import appServices from '../services/service'
 
 const props = defineProps(['id'])
 const posts = ref(null);
 const comments = ref(null);
 
    function  getpostdetails(){
-           axios.get('https://jsonplaceholder.typicode.com/posts/'+ props.id).then((res)=>{
+           appServices.getPostById(props.id).then((res)=>{
             posts.value = res.data
            })
             }
     function  getcomments(){
-            axios.get(`https://jsonplaceholder.typicode.com/posts/${props.id}/comments`).then((res)=>{
+            appServices.getComments(props.id).then((res)=>{
             comments.value = res.data
             // console.log(this.comments)
            })

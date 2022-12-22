@@ -23,12 +23,12 @@
 import axios from 'axios'
 import PostDetails from './PostDetails.vue'
 import {ref,onMounted} from 'vue'
-
+import appServices from '../services/service'
 const posts = ref([]);
 const ShowPosts = ref(false);
 
 function  getallposts(){
-        axios.get('https://jsonplaceholder.typicode.com/posts')
+       appServices.getPosts()
         .then((res)=>{
             posts.value = res.data
             // console.log(res)
@@ -55,7 +55,7 @@ function  getallposts(){
      readLess.style.display = 'none';
      const removeChar = id.replace(/[A-z]/g,'')
      let detail =  document.getElementById(removeChar+'detail');
-     console.log(detail)
+    //  console.log(detail)
      detail.style.display='none'
      let readMore = document.getElementById(removeChar)
      readMore.style.display ='block'

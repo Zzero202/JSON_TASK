@@ -1,8 +1,8 @@
 <template>
     
- <h2 style="text-align:center;color:#fff">{{PostStore.name}}</h2>
-    <div v-if="PostStore.posts.length" id="content">
-   <div v-for="post in PostStore.posts" :key="post.id" class='post-content'>
+ <h2 style="text-align:center;color:#fff">{{name}}</h2>
+    <div v-if="posts.length" id="content">
+   <div v-for="post in posts" :key="post.id" class='post-content'>
         <div class='post'>
        <h4>{{post.title}}</h4>
        <p>{{post.body}}</p>
@@ -20,11 +20,14 @@
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia';
 import {usePostStore} from '../stores/index'
 // console.log(usePostStore())
 import PostDetails from '../views/PostDetails.vue';
 const PostStore = usePostStore();
-
+const {name,posts} = storeToRefs(PostStore)
+const {showPosts} = PostStore
+showPosts();
 // export default {
     //     name: 'Posts',
     // data(){

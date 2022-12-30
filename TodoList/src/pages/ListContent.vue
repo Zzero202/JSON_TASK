@@ -58,11 +58,12 @@
         class="row q-mt-lg"
       >
         <div class="col-6">
-          <p style="font-size: 20px">{{ compelete.value }}</p>
+          <p :id="index" style="font-size: 20px">{{ compelete.value }}</p>
         </div>
         <div class="col-6">
           <q-btn round dense flat icon="undo" @click="undoCompelete(index)" />
           <q-btn round dense flat icon="delete" @click="CompeleteItem(index)" />
+          <!-- <q-btn round dense flat icon="done" @click="done(index)" /> -->
         </div>
       </q-card-section>
     </q-card>
@@ -89,6 +90,7 @@ const emit = defineEmits([
   "undo",
   "compelete",
   "undoCompelete",
+  "done"
 ]);
 function removeItem(index) {
   // eslint-disable-next-line vue/no-mutating-props
@@ -129,6 +131,13 @@ function undoCompelete(index) {
   props.compeletedItems.splice(index, 1);
   emit("undoCompelete");
 }
+// function done(index){
+//   // eslint-disable-next-line vue/no-mutating-props
+//   // let x = document.getElementById(index)
+//   // x.style.background ='green';
+//   console.log(props.compeletedItems[index].value);
+//   emit("done")
+// }
 </script>
 
 <style lang="scss" scoped>

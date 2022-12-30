@@ -50,7 +50,7 @@
     </q-card>
     <q-card class="my-card col-4" v-if="compeletedItems.length">
       <h5 class="text-green text-left q-px-sm text-weight-bolder">
-        Compeleted
+        Completed
       </h5>
       <q-card-section
         v-for="(compelete, index) in compeletedItems"

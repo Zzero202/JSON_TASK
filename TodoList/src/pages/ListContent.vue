@@ -72,7 +72,7 @@
       </q-card-section>
     </q-card>
   </div> -->
-  <q-card class="my-card col-4">
+  <q-card v-if="items.length" class="my-card col-4">
     <h5 :style="{ color: color }" class="text-left q-px-sm text-weight-bolder">
       {{ name }}
     </h5>
@@ -88,6 +88,14 @@
         <q-btn round dense flat :icon="icon1" @click="toProgress(index)" />
         <q-btn round dense flat :icon="icon2" @click="cancel(index)" />
       </div>
+    </q-card-section>
+  </q-card>
+  <q-card v-else class="my-card col-4">
+    <h5 :style="{ color: color }" class="text-left q-px-sm text-weight-bolder">
+      {{ name }}
+    </h5>
+    <q-card-section>
+      <div class="text-subtitle2">Nothing in the list</div>
     </q-card-section>
   </q-card>
 </template>

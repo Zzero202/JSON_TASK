@@ -1,5 +1,5 @@
 <template>
-  <div class="row text-center q-mt-lg">
+  <!-- <div class="row text-center q-mt-lg">
     <q-card v-if="items.length" class="my-card col-4">
       <h5 class="text-left q-px-sm text-weight-bolder">To Do</h5>
       <q-card-section
@@ -17,7 +17,7 @@
       </q-card-section>
     </q-card>
     <q-card class="my-card col-4" v-else>
-      <h5 class="text-left q-px-sm text-weight-bolder">To Do</h5>
+      <h5 class="text-left q-px-sm text-weight-bolder">{{ name }}</h5>
       <q-card-section>
         <p>nothing in the list</p>
       </q-card-section>
@@ -61,7 +61,7 @@
         <div class="col-6">
           <q-btn round dense flat icon="undo" @click="undoCompelete(index)" />
           <q-btn round dense flat icon="delete" @click="CompeleteItem(index)" />
-          <!-- <q-btn round dense flat icon="done" @click="done(index)" /> -->
+          <q-btn round dense flat icon="done" @click="done(index)" />
         </div>
       </q-card-section>
     </q-card>
@@ -71,15 +71,36 @@
         <p>nothing in the list</p>
       </q-card-section>
     </q-card>
-  </div>
+  </div> -->
+  <q-card class="my-card col-4">
+    <h5 :style="{ color: color }" class="text-left q-px-sm text-weight-bolder">
+      {{ name }}
+    </h5>
+    <q-card-section
+      v-for="(item, index) in items"
+      :key="index"
+      class="row q-mt-lg"
+    >
+      <div class="col-6">
+        <p style="font-size: 20px">{{ item.value }}</p>
+      </div>
+      <div class="col-6">
+        <q-btn round dense flat :icon="icon1" @click="toProgress(index)" />
+        <q-btn round dense flat :icon="icon2" @click="cancel(index)" />
+      </div>
+    </q-card-section>
+  </q-card>
 </template>
-
 <script setup>
 import { ref } from "vue";
 const props = defineProps({
+  name: String,
   items: Array,
-  compeletedItems: Array,
-  progressItems: Array,
+  icon1: String,
+  icon2: String,
+  color: String,
+  cancel:Function,
+  toProgress:Function,
 });
 const emit = defineEmits([
   "removeItem",

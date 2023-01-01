@@ -3,40 +3,86 @@ import { ref } from "vue";
 
 export const useForm = defineStore('form', () => {
   const toDoAdd = ref("");
-  const items = ref([]);
-  const progressItems = ref([]);
-  const compeletedItems = ref([]);
+  const lists = ref({
+    name: 'To Do',
+    items: [],
+    icon1: 'login',
+    icon2: 'cancel',
+    color: 'black',
+    cancel: (index) => {
+      lists.value.items.splice(index, 1);
+      // console.log(lists.value.items);
+    },
+    toProgress: (index) => {
+      progressItems.value.items.push(lists.value.items[index]);
+      lists.value.items.splice(index, 1);
+    }
+  });
+  const progressItems = ref({
+    name: 'In Progress',
+    items: [],
+    icon1: 'login',
+    icon2: 'undo',
+    color: '#FFCC00',
+    toProgress: (index) => {
+      compeletedItems.value.items.push(progressItems.value.items[index]);
+      progressItems.value.items.splice(index, 1);
+    },
+    cancel: (index) => {
+      lists.value.items.push(progressItems.value.items[index]);
+      progressItems.value.items.splice(index, 1);
+    }
+  });
+  const compeletedItems = ref({
+    name: 'Completed',
+    items: [],
+    icon1: 'cancel',
+    icon2: 'undo',
+    color: 'green',
+    toProgress: (index) => {
+      compeletedItems.value.items.splice(index, 1);
+
+    },
+    cancel: (index) => {
+      progressItems.value.items.push(compeletedItems.value.items[index]);
+      compeletedItems.value.items.splice(index, 1);
+    }
+  });
   function addItem() {
     if (!toDoAdd.value == "") {
-      items.value.push({ value: toDoAdd.value });
+      lists.value.items.push({ value: toDoAdd.value });
       toDoAdd.value = "";
-      console.log(items.value)
+      // console.log(lists.value.items)
     }
   }
-  function removeItem(index) {
-    items.value.splice(index, 1);
-  }
-  function CompeleteItem(index) {
-    compeletedItems.value.splice(index, 1);
+  // function removeItem(index) {
+  //   lists.value.items.splice(index, 1);
+  // }
+  // function CompeleteItem(index) {
+  //   compeletedItems.value.items.splice(index, 1);
 
-  }
-  function progress(index) {
-    progressItems.value.push(items.value[index]);
-    items.value.splice(index, 1);
+  // }
+  // function progress(index) {
+  //   progressItems.value.items.push(lists.value.items[index]);
+  //   lists.value.items.splice(index, 1);
+  //   //  console.log('t')
 
-  }
-  function undo(index) {
-    items.value.push(progressItems.value[index]);
-    progressItems.value.splice(index, 1);
+  // }
+  // function undo(index) {
+  //   lists.value.items.push(progressItems.value.items[index]);
+  //   progressItems.value.items.splice(index, 1);
 
+  // }
+  // function compelete(index) {
+  //   compeletedItems.value.items.push(progressItems.value.items[index]);
+  //   progressItems.value.items.splice(index, 1);
+  // }
+  // function undoCompelete(index) {
+  //   progressItems.value.items.push(compeletedItems.value.items[index]);
+  //   compeletedItems.value.items.splice(index, 1);
+  // }
+  return {
+    toDoAdd, lists, progressItems, compeletedItems, addItem
+    // , undoCompelete, compelete, progress, undo, removeItem, CompeleteItem
   }
-  function compelete(index) {
-    compeletedItems.value.push(progressItems.value[index]);
-    progressItems.value.splice(index, 1);
-  }
-  function undoCompelete(index) {
-    progressItems.value.push(compeletedItems.value[index]);
-    compeletedItems.value.splice(index, 1);
-  }
-  return { toDoAdd, items, progressItems, compeletedItems, addItem, undoCompelete, compelete, progress, undo, removeItem, CompeleteItem }
 });

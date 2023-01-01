@@ -4,7 +4,17 @@
       <q-btn round dense flat icon="send" @click="addItem" />
     </template>
   </q-input>
-  <ListContent :items="items" :progressItems="progressItems" :compeletedItems="compeletedItems" @removeItem="removeItem" @CompeleteItem="CompeleteItem" @progress="progress" @undo="undo" @compelete="compelete" @undoCompelete="undoCompelete" />
+  <ListContent
+    :items="items"
+    :progressItems="progressItems"
+    :compeletedItems="compeletedItems"
+    @removeItem="removeItem"
+    @CompeleteItem="CompeleteItem"
+    @progress="progress"
+    @undo="undo"
+    @compelete="compelete"
+    @undoCompelete="undoCompelete"
+  />
 </template>
 
 <script setup>
@@ -13,9 +23,16 @@ import ListContent from "../pages/ListContent.vue";
 import { useForm } from "../stores/Form";
 
 const store = useForm();
-const {toDoAdd,items,progressItems,compeletedItems} = storeToRefs(store);
-const {addItem}  = store;
-
+const { toDoAdd, items, progressItems, compeletedItems } = storeToRefs(store);
+const {
+  addItem,
+  undoCompelete,
+  compelete,
+  progress,
+  undo,
+  removeItem,
+  CompeleteItem,
+} = store;
 </script>
 
 <style lang="scss" scoped>

@@ -49,9 +49,7 @@
       </q-card-section>
     </q-card>
     <q-card class="my-card col-4" v-if="compeletedItems.length">
-      <h5 class="text-green text-left q-px-sm text-weight-bolder">
-        Completed
-      </h5>
+      <h5 class="text-green text-left q-px-sm text-weight-bolder">Completed</h5>
       <q-card-section
         v-for="(compelete, index) in compeletedItems"
         :key="index"
@@ -90,46 +88,25 @@ const emit = defineEmits([
   "undo",
   "compelete",
   "undoCompelete",
-  "done"
+  "done",
 ]);
 function removeItem(index) {
-  // eslint-disable-next-line vue/no-mutating-props
-  props.items.splice(index, 1);
-  emit("removeItem");
+  emit("removeItem", index);
 }
 function CompeleteItem(index) {
-  // eslint-disable-next-line vue/no-mutating-props
-  props.compeletedItems.splice(index, 1);
-  emit("CompeleteItem");
+  emit("CompeleteItem", index);
 }
 function progress(index) {
-  // eslint-disable-next-line vue/no-mutating-props
-  props.progressItems.push(props.items[index]);
-  // eslint-disable-next-line vue/no-mutating-props
-  props.items.splice(index, 1);
-  emit("progress");
-  // console.log(progressItems.value);
+  emit("progress", index);
 }
 function undo(index) {
-  // eslint-disable-next-line vue/no-mutating-props
-  props.items.push(props.progressItems[index]);
-    // eslint-disable-next-line vue/no-mutating-props
-  props.progressItems.splice(index, 1);
-  emit("undo");
+  emit("undo", index);
 }
 function compelete(index) {
-  // eslint-disable-next-line vue/no-mutating-props
-  props.compeletedItems.push(props.progressItems[index]);
-  // eslint-disable-next-line vue/no-mutating-props
-  props.progressItems.splice(index, 1);
-  emit("compelete");
+  emit("compelete", index);
 }
 function undoCompelete(index) {
-  // eslint-disable-next-line vue/no-mutating-props
-  props.progressItems.push(props.compeletedItems[index]);
-  // eslint-disable-next-line vue/no-mutating-props
-  props.compeletedItems.splice(index, 1);
-  emit("undoCompelete");
+  emit("undoCompelete", index);
 }
 // function done(index){
 //   // eslint-disable-next-line vue/no-mutating-props

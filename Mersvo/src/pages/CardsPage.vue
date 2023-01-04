@@ -10,7 +10,7 @@
       </router-link>
     </q-card-section>
     <q-card-section>
-      <div class="text-h6">{{ title }}</div>
+      <div class="text-h6 text-capitalize">{{ title }}</div>
     </q-card-section>
     <q-separator />
     <q-card-section>

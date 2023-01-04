@@ -9,12 +9,12 @@ export const useCardStore = defineStore('card', () => {
 
   })
   const catering = ref({
-    title: 'catering',
+    title: 'Catering',
     routing: '/catering'
 
   })
   const hotDesking = ref({
-    title: 'hotDesking',
+    title: 'Hot Desking',
     routing: '/Hot Desking'
 
   })
@@ -24,7 +24,7 @@ export const useCardStore = defineStore('card', () => {
 
   })
   const visitors = ref({
-    title: 'visitors',
+    title: 'Visitors',
     routing: '/visitors'
 
   })
